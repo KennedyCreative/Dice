@@ -19,6 +19,17 @@ class _DiceState extends State<Dice> {
   int randomNumber = 1;
   List<int> historyNumber = [];
 
+  void randomDice() {
+    setState(() {
+      Random random = Random();
+      int randomNumber = random.nextInt(6) + 1;
+      if (historyNumber.length >= 6) {
+        historyNumber.removeAt(0);
+      }
+      historyNumber.add(randomNumber);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,16 +38,7 @@ class _DiceState extends State<Dice> {
         children: [
           Center(
             child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  Random random = Random();
-                  int randomNumber = random.nextInt(6) + 1;
-                  if (historyNumber.length >= 6) {
-                    historyNumber.removeAt(0);
-                  }
-                  historyNumber.add(randomNumber);
-                });
-              },
+              onTap: randomDice,
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Image.asset(
